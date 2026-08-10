@@ -23,6 +23,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Versión ÚNICA por commit inyectada en los 3 sitios (sw.js CACHE,
+      # version.json build, index.html BUILD) → cache-busting + aviso de "versión
+      # nueva" automáticos, sin bumps a mano. Falla el deploy si queda placeholder.
+      - name: Inyectar versión de build
+        run: |
+          VER="qrclapper-$(date -u +%Y%m%d)-${GITHUB_SHA::7}"
+          echo "Versión de build: $VER"
+          sed -i "s/__BUILD__/$VER/g" sw.js version.json index.html
+          if grep -q "__BUILD__" sw.js version.json index.html; then
+            echo "ERROR: quedó __BUILD__ sin sustituir"; exit 1
+          fi
+          echo "version.json →"; cat version.json
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
