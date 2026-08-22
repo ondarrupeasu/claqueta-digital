@@ -670,7 +670,7 @@
    La app es cliente offline: esto gestiona QUIÉN la usa (control "blando").
    Login online → token firmado cacheado → funciona OFFLINE hasta caducar →
    heartbeat al recuperar red (revalida + renueva). */
-const API_BASE = 'https://qrclapper-api.onrender.com';   // ← URL de la API en Render (ajustar tras desplegar)
+const API_BASE = 'https://qrclapper-api.cinemafilmak.com';   // ← API en el box Hetzner (misma Neon, sin cold-start). Rollback: qrclapper-api.onrender.com
 // Interruptor del control de acceso. TRUE = login obligatorio. Si algún día hay
 // que abrir la app de emergencia (backend caído, etc.), poner FALSE y desplegar.
 const AUTH_ENABLED = true;
